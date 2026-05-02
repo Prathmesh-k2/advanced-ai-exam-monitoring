@@ -9,7 +9,7 @@ router.post('/submit', authenticateToken, async (req, res) => {
     const { examId, answers } = req.body; 
     // answers expected format: { questionId: 'A', questionId2: 'C', ... }
     try {
-        const [questions] = await pool.execute('SELECT id, correct_option FROM questions WHERE exam_id = ?', [examId]);
+        const [questions] = await pool.execute('SELECT id, correct_option, question_type FROM questions WHERE exam_id = ?', [examId]);
         
         if (questions.length === 0) return res.status(400).json({ message: 'No questions in this exam' });
 
@@ -17,7 +17,10 @@ router.post('/submit', authenticateToken, async (req, res) => {
         let total = questions.length;
         
         questions.forEach(q => {
-            if (answers[q.id] && answers[q.id] === q.correct_option) {
+            const studentAns = answers[q.id] ? String(answers[q.id]).trim().toLowerCase() : '';
+            const correctAns = q.correct_option ? String(q.correct_option).trim().toLowerCase() : '';
+            
+            if (studentAns && studentAns === correctAns) {
                 score++;
             }
         });

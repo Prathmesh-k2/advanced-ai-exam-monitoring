@@ -1,18 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-color: #0f172a;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
+  --bg-color: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
   --primary: #3b82f6;
   --primary-hover: #2563eb;
   --accent: #8b5cf6;
   --danger: #ef4444;
   --success: #10b981;
   
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.05);
 }
 
 * {
@@ -26,15 +26,15 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   min-height: 100vh;
-  background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
-                    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.15), transparent 25%);
+  background-image: radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.05), transparent 25%),
+                    radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.05), transparent 25%);
 }
 
 /* Glassmorphism Classes */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: 16px;
@@ -43,8 +43,9 @@ body {
 
 /* Typography */
 h1, h2, h3 {
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1rem;
+  color: #1e293b;
 }
 p { color: var(--text-secondary); margin-bottom: 1rem; }
 
@@ -64,8 +65,8 @@ p { color: var(--text-secondary); margin-bottom: 1rem; }
 input, select, textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid var(--glass-border);
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.1);
   border-radius: 8px;
   color: var(--text-primary);
   font-family: inherit;
@@ -129,8 +130,8 @@ input:focus, select:focus, textarea:focus {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  border-bottom: 1px solid var(--glass-border);
-  background: rgba(15, 23, 42, 0.8);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
 }
 

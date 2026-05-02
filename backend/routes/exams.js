@@ -31,15 +31,37 @@ router.post('/', authenticateToken, authorizeAdmin, async (req, res) => {
 // Admin: Add Question to Exam
 router.post('/:id/questions', authenticateToken, authorizeAdmin, async (req, res) => {
     const examId = req.params.id;
-    const { question_text, option_a, option_b, option_c, option_d, correct_option } = req.body;
+    const { question_text, option_a, option_b, option_c, option_d, correct_option, question_type } = req.body;
     try {
         await pool.execute(
             `INSERT INTO questions 
-            (exam_id, question_text, option_a, option_b, option_c, option_d, correct_option) 
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [examId, question_text, option_a, option_b, option_c, option_d, correct_option]
+            (exam_id, question_text, option_a, option_b, option_c, option_d, correct_option, question_type) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+            [examId, question_text, option_a, option_b, option_c, option_d, correct_option, question_type || 'mcq']
         );
         res.status(201).json({ message: 'Question added successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// Admin: Edit Exam
+router.put('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
+    const { title, description } = req.body;
+    try {
+        await pool.execute('UPDATE exams SET title = ?, description = ? WHERE id = ?', [title, description, req.params.id]);
+        res.json({ message: 'Exam updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
+// Admin: Delete Exam
+router.delete('/:id', authenticateToken, authorizeAdmin, async (req, res) => {
+    console.log(`DELETE request received for exam ID: ${req.params.id}`);
+    try {
+        await pool.execute('DELETE FROM exams WHERE id = ?', [req.params.id]);
+        res.json({ message: 'Exam deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -64,7 +86,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
         const [exams] = await pool.execute('SELECT * FROM exams WHERE id = ?', [examId]);
         if (exams.length === 0) return res.status(404).json({ message: 'Exam not found' });
         
-        let query = 'SELECT id, exam_id, question_text, option_a, option_b, option_c, option_d FROM questions WHERE exam_id = ?';
+        let query = 'SELECT id, exam_id, question_text, option_a, option_b, option_c, option_d, question_type FROM questions WHERE exam_id = ?';
         if (req.user.role === 'admin') {
              query = 'SELECT * FROM questions WHERE exam_id = ?';
         }

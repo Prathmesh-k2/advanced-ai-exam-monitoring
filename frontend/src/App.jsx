@@ -6,6 +6,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminDashboard from './pages/AdminDashboard';
 import CreateExam from './pages/CreateExam';
+import EditExam from './pages/EditExam';
+import ExamResults from './pages/ExamResults';
 import StudentDashboard from './pages/StudentDashboard';
 import TakeExam from './pages/TakeExam';
 
@@ -31,6 +33,12 @@ function App() {
           } />
           <Route path="/admin/create-exam" element={
             <ProtectedRoute roleRequired="admin"><CreateExam /></ProtectedRoute>
+          } />
+          <Route path="/admin/edit-exam/:id" element={
+            <ProtectedRoute roleRequired="admin"><EditExam /></ProtectedRoute>
+          } />
+          <Route path="/admin/exam/:id/results" element={
+            <ProtectedRoute roleRequired="admin"><ExamResults /></ProtectedRoute>
           } />
 
           {/* Student Routes */}
