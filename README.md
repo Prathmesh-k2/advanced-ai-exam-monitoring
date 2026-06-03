@@ -287,6 +287,3 @@ This project is licensed under the **ISC License** - see the [LICENSE](LICENSE) 
 
 **[⬆ Back to top](#-advanced-ai-exam-monitoring-system)**
 
-Made with ❤️ by [Prathmesh-k2](https://github.com/Prathmesh-k2)
-
-</div>
